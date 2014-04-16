@@ -2,18 +2,18 @@
 <html class="no-js">
     <head>
         <meta charset="utf-8">
-        <title>dinner</title>
+        <title>{{ title }}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="shortcut icon" href="/favicon.ico">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css styles/vendor.css -->
         <!-- bower:css -->
-        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="{{ static_url('bower/bootstrap/dist/css/bootstrap.css') }}">
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="{{ static_url('css/main.css') }}">
         <!-- endbuild -->
     </head>
     <body>
@@ -61,7 +61,7 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="{{ static_url('bower/jquery/dist/jquery.js') }}"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -76,22 +76,22 @@
         </script>
 
         <!-- build:js scripts/plugins.js -->
-        <script src="../bower_components/bootstrap/js/affix.js"></script>
-        <script src="../bower_components/bootstrap/js/alert.js"></script>
-        <script src="../bower_components/bootstrap/js/dropdown.js"></script>
-        <script src="../bower_components/bootstrap/js/tooltip.js"></script>
-        <script src="../bower_components/bootstrap/js/modal.js"></script>
-        <script src="../bower_components/bootstrap/js/transition.js"></script>
-        <script src="../bower_components/bootstrap/js/button.js"></script>
-        <script src="../bower_components/bootstrap/js/popover.js"></script>
-        <script src="../bower_components/bootstrap/js/carousel.js"></script>
-        <script src="../bower_components/bootstrap/js/scrollspy.js"></script>
-        <script src="../bower_components/bootstrap/js/collapse.js"></script>
-        <script src="../bower_components/bootstrap/js/tab.js"></script>
+        <script src="{{ static_url('bower/bootstrap/js/affix.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/alert.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/dropdown.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/tooltip.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/modal.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/transition.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/button.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/popover.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/carousel.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/scrollspy.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/collapse.js') }}"></script>
+        <script src="{{ static_url('bower/bootstrap/js/tab.js') }}"></script>
         <!-- endbuild -->
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
-        <script src="scripts/main.js"></script>
+        <script src="{{ static_url('js/main.js') }}"></script>
         <!-- endbuild -->
 </body>
 </html>
