@@ -7,6 +7,33 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+// -----------------------------------------------------------------
+var child_process = require('child_process');
+var fs = require('fs');
+
+/** Execute shell command line
+ * TODO: replace this method for high effective
+ */
+function execSync(command) {
+    // 在子shell中运行命令
+    child_process.exec(command + ' 2>&1 1>output && echo done! > done');
+
+    // 阻塞事件循环，知道命令执行完
+    while (!fs.existsSync('done')) {
+    // 什么都不做
+    }
+
+    // 读取输出
+    var output = fs.readFileSync('output');
+
+    // 删除临时文件。
+    fs.unlinkSync('output');
+    fs.unlinkSync('done');
+
+    return output;
+}
+// -----------------------------------------------------------------
+
 module.exports = function (grunt) {
 
     // Load grunt tasks automatically
@@ -66,7 +93,7 @@ module.exports = function (grunt) {
         // The actual grunt server settings
         connect: {
             options: {
-                port: 9000,
+                port: 9001,
                 open: true,
                 livereload: 35729,
                 // Change this to '0.0.0.0' to access the server from outside
@@ -330,6 +357,7 @@ module.exports = function (grunt) {
             'concurrent:server',
             'autoprefixer',
             'connect:livereload',
+            'tornado',
             'watch'
         ]);
     });
@@ -367,6 +395,10 @@ module.exports = function (grunt) {
         'usemin',
         'htmlmin'
     ]);
+
+    grunt.registerTask('tornado', function() {
+        execSync('./src/index.py');
+    });
 
     grunt.registerTask('default', [
         'newer:jshint',

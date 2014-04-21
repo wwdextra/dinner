@@ -16,9 +16,14 @@ settings = {
 SITE_NAME = 'Dinner'
 SITE_LOGO = ''
 
+DATABASE_ENGINE = 'sqlite3'
+DATABASE_NAME = 'dev.db'
+
+# footer info
+copyright_info = ''
 
 try:
   from .. import pro_settings
   print "Using PRODUCTION settings..."
-except ValueError:
+except Exception:
   print "Using DEV settings..."

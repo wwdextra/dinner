@@ -1,1 +1,4 @@
 tornado
+django
+SQLAlchemy
+pysqlite
