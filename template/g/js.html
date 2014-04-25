@@ -15,7 +15,7 @@
 </script>
 
 <!-- build:js scripts/plugins.js -->
-<script src="{{ static_url('bower/bootstrap/js/affix.js') }}"></script>
+<!-- <script src="{{ static_url('bower/bootstrap/js/affix.js') }}"></script>
 <script src="{{ static_url('bower/bootstrap/js/alert.js') }}"></script>
 <script src="{{ static_url('bower/bootstrap/js/dropdown.js') }}"></script>
 <script src="{{ static_url('bower/bootstrap/js/tooltip.js') }}"></script>
@@ -26,5 +26,10 @@
 <script src="{{ static_url('bower/bootstrap/js/carousel.js') }}"></script>
 <script src="{{ static_url('bower/bootstrap/js/scrollspy.js') }}"></script>
 <script src="{{ static_url('bower/bootstrap/js/collapse.js') }}"></script>
-<script src="{{ static_url('bower/bootstrap/js/tab.js') }}"></script>
+<script src="{{ static_url('bower/bootstrap/js/tab.js') }}"></script> -->
 <!-- endbuild -->
+<script src="{{ static_url('bower/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ static_url('js/g.js') }}"></script>
+
+{% block js %}
+{% end %}

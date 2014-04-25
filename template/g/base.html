@@ -1,24 +1,25 @@
 <!doctype html>
-<html class="no-js">
-  {% module Template("g/meta.html", title=title) %}
-  <body>
+<html lang="zh-cn">
+  <head>
+    {% module Template("g/meta.html", title=title) %}
+
+    {% block css %}
+    {% end %}
+
+  </head>
+  <body style="">
     <!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-    {% include "nav.html" %}
     <div class="container">
-      {% include "header.html" %}
+      {% include "nav.html" %}
 
-      {% block base_body %}
+      {% block body %}
       {% end %}
 
       {% include "footer.html" %}
+
+      {% include "js.html" %}
     </div>
-
-    {% include "js.html" %}
-
-    <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="{{ static_url('js/g.js') }}"></script>
-    <!-- endbuild -->
-</body>
+  </body>
 </html>

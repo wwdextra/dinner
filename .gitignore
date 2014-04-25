@@ -6,3 +6,5 @@ static/bower
 test/bower_components
 src/*.pyc
 *.db
+.idea
+.bak
