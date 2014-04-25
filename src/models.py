@@ -10,6 +10,7 @@ from sqlalchemy import Column, Integer, String, Sequence, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.orm import sessionmaker
 import os
+import tornado
 
 path = os.path.dirname(__file__)
 
@@ -95,18 +96,19 @@ class Site(Base):
 class User(Base):
   __tablename__ = 'user'
   id = Column(Integer, Sequence('seq_user_id'), primary_key=True)
+  dpt_id = Column(ForeignKey('dpt.id')) # Department id
+
   username = Column(String(30)) # Login username
   email = Column(String(50))
   password = Column(String(50)) # Default {null} is allowed
 
-  worker_code = Column(String(30)) # 工号
   cn_name = Column(String(30)) # 姓名
+  worker_code = Column(String(30)) # 工号
   first_name = Column(String(30)) # English given name
   last_name = Column(String(30)) # English family name
   nick = Column(String(50))
   mobile = Column(String(50))
   imqq = Column(String(50)) # Tencent im tool QQ number
-  dpt_id = Column(Integer) # Department id
 
   joined_date = Column(DateTime(), default=datetime.datetime.now())
   last_active_date = Column(DateTime())
@@ -116,8 +118,15 @@ class User(Base):
   is_root = Column(Integer, default=0) # system root admin
 
   def __repr__(self):
-    return "<User(name='%s', fullname='%s', password='%s')>" % (
-      self.name, self.fullname, self.password)
+    """Show in front page"""
+    _show_name = ''
+    if self.username:
+      _show_name = self.username
+    else:
+      _show_name = self.email
+
+    return tornado.escape.xhtml_escape(self.email)
+
 
 
 if __name__ == '__main__':

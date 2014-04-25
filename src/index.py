@@ -100,6 +100,7 @@ class BaseHandler(tornado.web.RequestHandler):
     self.db = models.DbSession()
     self.user, self.session_id = None, None
     self.j = JsonResult()
+    # name = tornado.escape.xhtml_escape(self.current_user)
 
   def on_finish(self): self.db.close()
 
@@ -112,18 +113,21 @@ class BaseHandler(tornado.web.RequestHandler):
 
   def get_current_user(self):
     self.session_id = self.get_secure_cookie(session_key)
-    print 80*'-'
-    print  self.session_id
     if not self.session_id:
       return None
-    return self.db.query(Session).filter(Session.session_id == self.session_id).first()
+    _s = self.db.query(Session).filter(Session.session_id == self.session_id).first()
+    if _s:
+      print _s.user_id
+      return self.db.query(User).get(_s.user_id)
+    else:
+      return None
 
 
 class IndexHandler(BaseHandler):
   """ Homepage """
   def get(self):
     if self.current_user:
-      # name = tornado.escape.xhtml_escape(self.current_user)
+
       q = self.db.query(User)
       items = q.all()
       self.render("index.html", title="Life", items=items)
@@ -207,7 +211,7 @@ class AdminHandler(BaseHandler):
 application = Application()
 
 def main():
-  print 'Using static path: %s' % settings.get('static_path')
+  print 'Using static: %s' % settings.get('static_path')
   print 'Running at: http://localhost:%s' % PORT
   application.listen(PORT)
   tornado.ioloop.IOLoop.instance().start()
