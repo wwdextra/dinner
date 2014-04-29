@@ -14,9 +14,11 @@ import tornado
 
 path = os.path.dirname(__file__)
 
-## TODO: multiy database string make up
 # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
-eg = create_engine("sqlite:///%s/../db/dev.db" % path, echo=True)
+# db_connect_string = 'mysql+mysqldb://root:admin@localhost/?charset=utf8'
+db_connect_string = 'mysql+mysqldb://root:admin@localhost/life?charset=utf8'
+# eg = create_engine("sqlite:///%s/../db/dev.db" % path, echo=True)
+eg = create_engine(db_connect_string, echo=True)
 
 # The "Session" class
 DbSession = sessionmaker(bind=eg)
@@ -40,17 +42,6 @@ class Calendar(Base):
     else:
       return "<User('%s-%s-%s')>" % (
         self.year, self.month, self.day)
-
-
-class Department(Base):
-  __tablename__ = 'dpt'
-  id = Column(Integer, Sequence('seq_dpt_id'), primary_key=True)
-  name = Column(String(30)) # 称名
-  code = Column(String(30)) # 代码
-
-  parent_dpt_id = Column(Integer, ForeignKey('dpt.id')) # Father department id
-  manager_id = Column(Integer, ForeignKey('user.id')) # Foreign key to user
-  sub_dpts = relationship("Department") # All sub departments
   
 
 class Holiday(Base):
@@ -61,7 +52,7 @@ class Holiday(Base):
 
   def __repr__(self):
     return "<Holiday(type='%s', desc='%s')>" % (
-      self.code, self.desc)    
+      self.code, self.desc)
 
 
 class Mail(Base):
@@ -96,7 +87,7 @@ class Site(Base):
 class User(Base):
   __tablename__ = 'user'
   id = Column(Integer, Sequence('seq_user_id'), primary_key=True)
-  dpt_id = Column(ForeignKey('dpt.id')) # Department id
+  dpt_id = Column(Integer, ForeignKey('dpt.id')) # Department id
 
   username = Column(String(30)) # Login username
   email = Column(String(50))
@@ -126,6 +117,18 @@ class User(Base):
       _show_name = self.email
 
     return tornado.escape.xhtml_escape(self.email)
+
+
+class Department(Base):
+  __tablename__ = 'dpt'
+  id = Column(Integer, Sequence('seq_dpt_id'), primary_key=True)
+  parent_dpt_id = Column(Integer, ForeignKey('dpt.id')) # Father department id
+  # user_id = Column(Integer, ForeignKey('user.id')) # user.id
+  manager_id = Column(Integer) #, ForeignKey('user.id')) # user.id
+
+  name = Column(String(30)) # 称名
+  code = Column(String(30)) # 代码
+  sub_dpts = relationship("Department") # All sub departments
 
 
 
