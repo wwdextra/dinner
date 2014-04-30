@@ -88,6 +88,7 @@ class User(Base):
   __tablename__ = 'user'
   id = Column(Integer, Sequence('seq_user_id'), primary_key=True)
   dpt_id = Column(Integer, ForeignKey('dpt.id')) # Department id
+  dpt = relationship("Department", backref=backref("user", order_by=id))
 
   username = Column(String(30)) # Login username
   email = Column(String(50))
@@ -125,6 +126,7 @@ class Department(Base):
   parent_dpt_id = Column(Integer, ForeignKey('dpt.id')) # Father department id
   # user_id = Column(Integer, ForeignKey('user.id')) # user.id
   manager_id = Column(Integer) #, ForeignKey('user.id')) # user.id
+  # manager = relationship("User", backref=backref("dpt", order_by=id))
 
   name = Column(String(30)) # 称名
   code = Column(String(30)) # 代码
@@ -133,6 +135,7 @@ class Department(Base):
 
 
 if __name__ == '__main__':
-  # Create tables by run it
-  Base.metadata.drop_all(eg)
+  # Create database before init tables:
+  # mysql> create database life DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+  # Base.metadata.drop_all(eg)
   Base.metadata.create_all(eg)

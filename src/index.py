@@ -170,7 +170,7 @@ class LoginHandler(BaseHandler):
     # 未登录返回JSON
     self.set_header("Content-Type", 'application/json; charset="utf-8"')
     # 看密码是否吻合，返回第一条记录的第一个元素
-    _q = session.query(User).filter(User.email == email, User.password == password).scalar()
+    _q = session.query(User).filter(User.email == email, User.password == password).first()
     if _q:
       _session_id = gen_session_id()
       self.set_secure_cookie(session_key, _session_id, expires_days=expires_days)

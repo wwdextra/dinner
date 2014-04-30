@@ -12,9 +12,11 @@
           current user:
             {{ current_user }}<br>
           {{ current_user.dpt_id }}<br>
+          {{ current_user.dpt.name }}<br>----
+          {{ current_user.dpt }}<br>
           iterator:
           {% for u in items %}
-             {{ u.username }}
+             {{ u.email }}
           {% end %}
         </p>
       </div>
@@ -56,11 +58,10 @@
     </div>
 
 
-
 {% end %}
 
 {% block js %}
-    <!-- build:js({app,.tmp}) scripts/main.js -->
+
     <script src="{{ static_url('js/index.js') }}"></script>
-    <!-- endbuild -->
+
 {% end %}
