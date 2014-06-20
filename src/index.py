@@ -9,6 +9,10 @@ import os
 root = os.path.dirname(__file__)
 PORT = 9000
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 import datetime
 from multimethods import multimethod as mm
 try: import simplejson as json
@@ -24,12 +28,13 @@ import models
 from models import DbSession, User, Session
 
 from settings import *
-from error import enum_error_code, enum_error_info
+from error import error_code, error_info
 from session import gen_session_id
 
-session_key = 'session_id' # Browser cookie
 
-session = DbSession() # instantiated
+session_key = 'ssid' # Browser cookie
+
+db = DbSession() # instantiated
 
 class JsonResult(object):
   """Http JSON helper"""
@@ -46,28 +51,50 @@ class JsonResult(object):
   def dict(self):
     return self.__dict__
 
-  def ok(self, data=None):
+  @mm(list(), str)
+  def ok(self, data, message):
     """As jQuery chain function call"""
     self.ec = 0
     self.data = data
+    self.message = message
+    return self
+
+  @mm(str)
+  def ok(self, message):
+    self.ec = 0
+    self.data = []
+    self.message = message
+    return self
+
+  @mm()
+  def ok(self):
+    self.ec = 0
+    self.data = []
+    self.message = error_code.get(str(0), '')
+    return self
+
+  @mm()
+  def error(self):
+    self.ec = 1
+    self.message = error_code.get(str(1), '')
     return self
 
   @mm(int)
   def error(self, ec):
     self.ec = ec
-    self.message = enum_error_code.get(str(ec), '')
+    self.message = error_code.get(str(ec), '')
     return self
 
   @mm(str)
   def error(self, message):
     self.message = message
-    self.ec = enum_error_info.get(message, 9999)
+    self.ec = error_info.get(message, 9999)
     return self
 
   @mm(int, str)
   def error(self, ec, message):
     self.message = message
-    self.ec = enum_error_info.get(message, 9999)
+    self.ec = error_info.get(message, 9999)
     return self
 
 
@@ -89,6 +116,9 @@ class Application(tornado.web.Application):
     handlers = [
       (r"/", IndexHandler),
       (r"/login", LoginHandler),
+      (r"/logout", LogoutHandler),
+      (r"/h\/(?P<filename>\w+)", HtmlHandler),
+      (r"/dinner", DinnerHandler),
       (r"/%20admin", AdminHandler), # it is a secret :)
     ]
     tornado.web.Application.__init__(self, handlers, **settings)
@@ -100,24 +130,22 @@ class BaseHandler(tornado.web.RequestHandler):
     self.db = models.DbSession()
     self.user, self.session_id = None, None
     self.j = JsonResult()
+    self.session_id = self.get_secure_cookie(session_key)
     # name = tornado.escape.xhtml_escape(self.current_user)
-
-  def on_finish(self): self.db.close()
-
-  def get(self):
-    if not self.current_user:
-      self.db.query(Session).filter(sid=self.session_id)
-    else:
+    if not self.session_id:
       _session_id = gen_session_id()
       self.set_secure_cookie(session_key, _session_id)
 
+  def on_finish(self): self.db.close()
+
+  def get(self): pass
+
   def get_current_user(self):
-    self.session_id = self.get_secure_cookie(session_key)
+    # self.session_id = self.get_secure_cookie(session_key)
     if not self.session_id:
       return None
     _s = self.db.query(Session).filter(Session.session_id == self.session_id).first()
     if _s:
-      print _s.user_id
       return self.db.query(User).get(_s.user_id)
     else:
       return None
@@ -130,6 +158,7 @@ class IndexHandler(BaseHandler):
 
       q = self.db.query(User)
       items = q.all()
+      # self = DinnerHandler
       self.render("index.html", title="Life", items=items)
     else:
       # Please sign in or up first
@@ -138,7 +167,7 @@ class IndexHandler(BaseHandler):
   def post(self):
     email = self.get_argument("email")
     password = self.get_argument('password')
-    q = session.query(User).filter(User.email==email).filter(User.password==password)
+    q = db.query(User).filter(User.email==email).filter(User.password==password)
 
 
 class LoginHandler(BaseHandler):
@@ -170,7 +199,7 @@ class LoginHandler(BaseHandler):
     # 未登录返回JSON
     self.set_header("Content-Type", 'application/json; charset="utf-8"')
     # 看密码是否吻合，返回第一条记录的第一个元素
-    _q = session.query(User).filter(User.email == email, User.password == password).first()
+    _q = db.query(User).filter(User.email == email, User.password == password).first()
     if _q:
       _session_id = gen_session_id()
       self.set_secure_cookie(session_key, _session_id, expires_days=expires_days)
@@ -184,7 +213,7 @@ class LoginHandler(BaseHandler):
       self.db.commit()
     else:
       # 密码校验失败
-      self.j.error(1)
+      self.j.error(2)
       # raise tornado.web.HTTPError(403)
     self.write(self.j.json())
 
@@ -196,10 +225,38 @@ class LogoutHandler(BaseHandler):
     # returning to this app will log them back in immediately with no
     # interaction (unless they have separately logged out of Google in
     # the meantime).
-    self.clear_cookie("authdemo_user")
-    # todo: remove self.db.session.session_id
-    self.write('You are now logged out. '
-               'Click <a href="/">here</a> to log back in.')
+    # todo: remove db.session.`session_id` value
+    self.post()
+
+  def post(self):
+    self.set_header("Content-Type", 'application/json; charset="utf-8"')
+    self.clear_cookie(session_key)
+    _s = self.db.query(Session).filter(Session.session_id == self.session_id).first()
+    if _s:
+      # todo: delete it
+      # db.delete(_s)
+      return self.write( self.j.ok().json() )
+    else:
+      return self.write( self.j.error().json() )
+
+
+class HtmlHandler(BaseHandler):
+  """General html template"""
+  def get(self, filename):
+    self.render("h/%s.html" % filename, title="%s" % filename.capitalize())
+
+
+class DinnerHandler(BaseHandler):
+  """ Homepage """
+  @auth
+  def get(self):
+    items = []
+    self.render("dinner.html", title="Life", items=items)
+
+  def post(self):
+    email = self.get_argument("email")
+    password = self.get_argument('password')
+    q = db.query(User).filter(User.email==email).filter(User.password==password)
 
 class AdminHandler(BaseHandler):
   # todo: uncomment bellow

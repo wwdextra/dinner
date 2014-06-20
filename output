@@ -1,0 +1,51 @@
+Using DEV settings...
+Using static: ./src/../static/
+Running at: http://localhost:9000
+2014-06-20 15:26:51,383 INFO sqlalchemy.engine.base.Engine SHOW VARIABLES LIKE 'sql_mode'
+2014-06-20 15:26:51,383 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 15:26:51,428 INFO sqlalchemy.engine.base.Engine SELECT DATABASE()
+2014-06-20 15:26:51,428 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 15:26:51,464 INFO sqlalchemy.engine.base.Engine show collation where `Charset` = 'utf8' and `Collation` = 'utf8_bin'
+2014-06-20 15:26:51,465 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 15:26:51,507 INFO sqlalchemy.engine.base.Engine SELECT CAST('test plain returns' AS CHAR(60)) AS anon_1
+2014-06-20 15:26:51,507 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 15:26:51,538 INFO sqlalchemy.engine.base.Engine SELECT CAST('test unicode returns' AS CHAR(60)) AS anon_1
+2014-06-20 15:26:51,538 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 15:26:51,540 INFO sqlalchemy.engine.base.Engine SELECT CAST('test collated returns' AS CHAR CHARACTER SET utf8) COLLATE utf8_bin AS anon_1
+2014-06-20 15:26:51,540 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 15:26:51,542 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2014-06-20 15:26:51,546 INFO sqlalchemy.engine.base.Engine SELECT session.id AS session_id_1, session.session_id AS session_session_id, session.user_id AS session_user_id, session.data AS session_data, session.expire_date AS session_expire_date 
+FROM session 
+WHERE session.session_id = %s 
+ LIMIT %s
+2014-06-20 15:26:51,546 INFO sqlalchemy.engine.base.Engine ('29ac9ad8f84c11e38907083e8e26a2d5', 1)
+2014-06-20 15:26:51,722 INFO sqlalchemy.engine.base.Engine ROLLBACK
+2014-06-20 17:08:01,874 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2014-06-20 17:08:01,875 INFO sqlalchemy.engine.base.Engine SELECT session.id AS session_id_1, session.session_id AS session_session_id, session.user_id AS session_user_id, session.data AS session_data, session.expire_date AS session_expire_date 
+FROM session 
+WHERE session.session_id = %s 
+ LIMIT %s
+2014-06-20 17:08:01,876 INFO sqlalchemy.engine.base.Engine ('29ac9ad8f84c11e38907083e8e26a2d5', 1)
+2014-06-20 17:08:01,892 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2014-06-20 17:08:01,900 INFO sqlalchemy.engine.base.Engine SELECT user.id AS user_id, user.dpt_id AS user_dpt_id, user.username AS user_username, user.email AS user_email, user.password AS user_password, user.cn_name AS user_cn_name, user.worker_code AS user_worker_code, user.first_name AS user_first_name, user.last_name AS user_last_name, user.nick AS user_nick, user.mobile AS user_mobile, user.imqq AS user_imqq, user.joined_date AS user_joined_date, user.last_active_date AS user_last_active_date, user.last_login_date AS user_last_login_date, user.last_lgoin_ip AS user_last_lgoin_ip, user.is_root AS user_is_root 
+FROM user 
+WHERE user.email = %s AND user.password = %s 
+ LIMIT %s
+2014-06-20 17:08:01,900 INFO sqlalchemy.engine.base.Engine (u'a', u'd', 1)
+2014-06-20 17:08:01,951 INFO sqlalchemy.engine.base.Engine INSERT INTO session (session_id, user_id, data, expire_date) VALUES (%s, %s, %s, %s)
+2014-06-20 17:08:01,951 INFO sqlalchemy.engine.base.Engine ('61962dfcf85a11e38907083e8e26a2d5', 1L, None, datetime.datetime(2014, 7, 20, 17, 8, 1, 923899))
+2014-06-20 17:08:02,115 INFO sqlalchemy.engine.base.Engine COMMIT
+2014-06-20 17:08:07,332 INFO sqlalchemy.engine.base.Engine BEGIN (implicit)
+2014-06-20 17:08:07,333 INFO sqlalchemy.engine.base.Engine SELECT session.id AS session_id_1, session.session_id AS session_session_id, session.user_id AS session_user_id, session.data AS session_data, session.expire_date AS session_expire_date 
+FROM session 
+WHERE session.session_id = %s 
+ LIMIT %s
+2014-06-20 17:08:07,333 INFO sqlalchemy.engine.base.Engine ('61962dfcf85a11e38907083e8e26a2d5', 1)
+2014-06-20 17:08:07,337 INFO sqlalchemy.engine.base.Engine SELECT user.id AS user_id, user.dpt_id AS user_dpt_id, user.username AS user_username, user.email AS user_email, user.password AS user_password, user.cn_name AS user_cn_name, user.worker_code AS user_worker_code, user.first_name AS user_first_name, user.last_name AS user_last_name, user.nick AS user_nick, user.mobile AS user_mobile, user.imqq AS user_imqq, user.joined_date AS user_joined_date, user.last_active_date AS user_last_active_date, user.last_login_date AS user_last_login_date, user.last_lgoin_ip AS user_last_lgoin_ip, user.is_root AS user_is_root 
+FROM user 
+WHERE user.id = %s
+2014-06-20 17:08:07,338 INFO sqlalchemy.engine.base.Engine (u'1',)
+2014-06-20 17:08:07,376 INFO sqlalchemy.engine.base.Engine SELECT user.id AS user_id, user.dpt_id AS user_dpt_id, user.username AS user_username, user.email AS user_email, user.password AS user_password, user.cn_name AS user_cn_name, user.worker_code AS user_worker_code, user.first_name AS user_first_name, user.last_name AS user_last_name, user.nick AS user_nick, user.mobile AS user_mobile, user.imqq AS user_imqq, user.joined_date AS user_joined_date, user.last_active_date AS user_last_active_date, user.last_login_date AS user_last_login_date, user.last_lgoin_ip AS user_last_lgoin_ip, user.is_root AS user_is_root 
+FROM user
+2014-06-20 17:08:07,377 INFO sqlalchemy.engine.base.Engine ()
+2014-06-20 17:08:07,410 INFO sqlalchemy.engine.base.Engine ROLLBACK

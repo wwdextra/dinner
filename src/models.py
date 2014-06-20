@@ -16,7 +16,7 @@ path = os.path.dirname(__file__)
 
 # http://docs.sqlalchemy.org/en/rel_0_9/core/engines.html
 # db_connect_string = 'mysql+mysqldb://root:admin@localhost/?charset=utf8'
-db_connect_string = 'mysql+mysqldb://root:admin@localhost/life?charset=utf8'
+db_connect_string = 'mysql+mysqldb://root:root@localhost/life?charset=utf8'
 # eg = create_engine("sqlite:///%s/../db/dev.db" % path, echo=True)
 eg = create_engine(db_connect_string, echo=True)
 
@@ -75,6 +75,9 @@ class Session(Base):
   data = Column(String(80)) # data
   expire_date = Column(String(80)) # session id
 
+  def __repr__(self):
+    return '%s' % self.id
+
 class Site(Base):
   """Site"""
   __tablename__ = 'site'
@@ -105,7 +108,7 @@ class User(Base):
   joined_date = Column(DateTime(), default=datetime.datetime.now())
   last_active_date = Column(DateTime())
   last_login_date = Column(DateTime())
-  last_lgoin_ip = Column(Integer) 
+  last_lgoin_ip = Column(Integer)
 
   is_root = Column(Integer, default=0) # system root admin
 
@@ -117,7 +120,7 @@ class User(Base):
     else:
       _show_name = self.email
 
-    return tornado.escape.xhtml_escape(self.email)
+    return tornado.escape.xhtml_escape(_show_name)
 
 
 class Department(Base):
@@ -132,6 +135,9 @@ class Department(Base):
   code = Column(String(30)) # 代码
   sub_dpts = relationship("Department") # All sub departments
 
+  def __repr__(self):
+    """Show in page"""
+    return self.name
 
 
 if __name__ == '__main__':
