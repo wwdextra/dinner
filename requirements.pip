@@ -1,5 +1,4 @@
 tornado
-django
 SQLAlchemy
 pysqlite
 simplejson
