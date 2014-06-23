@@ -8,3 +8,4 @@ src/*.pyc
 *.db
 .idea
 .bak
+*.pyc

@@ -40,3 +40,50 @@ ul {
 
 /* page dinner */
 .dinner {}
+.dinner .panel-body .week-bar {
+  padding-left: 10px;
+  margin-bottom: 10px;
+  float: left;
+  clear: both;
+}
+.dinner .panel-body .week-bar li {
+  float: left;
+  width: 45px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.dinner .panel-body .week-bar, .week-cell {
+  padding-left: 10px;
+  margin-bottom: 0;
+  float: left;
+  clear: both;
+}
+.dinner .panel-body .week-cell li {
+  border-radius: 4px;
+  float: left;
+  width: 41px;
+  height: 41px;
+  line-height: 41px;
+  /*padding: 15px;*/
+  margin: 2px;
+  text-align: center;
+  font-size: 16px;
+}
+.dinner .panel-body .week-cell li.holiday {
+  background-color: #f5f5f5;/* #faebcc;*/
+}
+.dinner .panel-body .week-cell li.workday:hover {
+  background-color: #eee; /*#f5f5f5; #dff0d8;*/
+  cursor: pointer;
+}
+
+.dinner .panel-body .week-cell li.abled {
+  background-color: #428bca;/* #faebcc;*/
+  color: white;
+}
+.dinner .panel-body .week-cell li.abled:hover {
+  background-color: #428bca;/* #faebcc;*/
+
+}
+

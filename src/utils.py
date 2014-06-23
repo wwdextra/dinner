@@ -2,6 +2,9 @@
 # coding=utf-8
 
 from multimethods import multimethod as mm
+try: import simplejson as json
+except ImportError: import json
+from error import error_code
 
 
 class JsonResult(object):
