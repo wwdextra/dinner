@@ -2,6 +2,28 @@
 
 {% block body %}
 
+<div class="dinner">
+  <div class="alert alert-info">
+    <strong>点击选中您需预订晚餐的日期，点击保存</strong>
+  </div>
+
+  <div class="row">
+    {% for i in range(0,3) %}
+    <div class="col-sm-4">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title center">Panel title</h3>
+        </div>
+        <div class="panel-body">
+          Panel content
+        </div>
+      </div>
+    </div>
+    {% end %}
+  </div>
+
+</div>
+
     <div class="theme-showcase" role="main">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
