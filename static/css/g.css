@@ -12,6 +12,9 @@ body {
 .text-center {
   text-align: center;
 }
+ul {
+  list-style:none;
+}
 
 .theme-dropdown .dropdown-menu {
   position: static;
