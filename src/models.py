@@ -139,6 +139,14 @@ class Department(Base):
     """Show in page"""
     return self.name
 
+class Dinner(object):
+  """docstring for UserDinner"""
+  __tablename__ = 'user_dinner'
+  id = Column(Integer, Sequence('seq_dinner_id'), primary_key=True)
+  user_id = Column(Integer, ForeignKey('user.id')) # Father department id
+  calendar_id = Column(Integer, ForeignKey('calendar.id')) # Father department id
+    
+
 
 if __name__ == '__main__':
   # Create database before init tables:

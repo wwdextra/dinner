@@ -58,6 +58,7 @@ class Application(tornado.web.Application):
       (r"/logout", LogoutHandler),
       (r"/h\/(?P<filename>\w+)", HtmlHandler),
       (r"/dinner", DinnerHandler),
+      (r"/dinner/calendar", CalendarHandler),
       (r"/%20admin", AdminHandler), # it is a secret :)
     ]
     tornado.web.Application.__init__(self, handlers, **settings)
@@ -209,6 +210,21 @@ class AdminHandler(BaseHandler):
   # @auth
   def get(self):
     self.write('admin ok')
+
+
+class CalendarHandler(BaseHandler):
+  """CalendarHandler"""
+  def get(self):
+    return self.write(self.j.error().json())
+
+  def post(self):
+    ''' Unix Bash commond `cal` displays a calendar and the date of Easter. '''
+    # selected: {String} `0`=False, `1`=True
+    selected = self.get_argument("selected")
+    cal_id = self.get_argument('cal_id')
+
+    return self.write( self.j.ok().json() )
+            
 
 
 application = Application()

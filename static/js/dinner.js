@@ -1,4 +1,4 @@
-// index.js
+// dinner.js
 // ~~~~~~~~~
 // Micheal Fan, 2014-05-15
 
@@ -11,12 +11,7 @@ Vue.config(
 Vue.directive('disable', function (value) {
     this.el.disabled = !!value
 });
-
-url = 'http://127.0.0.1:8000/users/';
-var pdata = '';
-var data = {
-  message: ''
-};
+var domain = 'http://localhost:8000';
 /*
 $.ajax({
   url: url,
@@ -28,27 +23,26 @@ $.ajax({
   }
 });
 */
-//{
-//    message: 'Hello Vue.js!'
-//};
-// var demo = new Vue({
-//   el: '#demo',
-//   data: data
-// });
 
 var test = new Vue({
   el: '#test0',
   data: {
-    abled: false
+    selected: false
   },
   methods: {
         onClick: function (e) {
             // console.log(e.target.tagName) // "A"
             // console.log(e.targetVM === this) // true
-            console.log('foo');
             // e是原生的DOM事件对象
             // this 指向该ViewModel实例
-            this.abled = !this.abled
+            this.selected = !this.selected;
+            var url = domain + '/dinner/calendar';
+            var pdata = {
+              selected: Number(this.selected),
+              cal_id: 333
+            };
+            $.post(url, pdata, function(response) {
+            }, 'json');
         }
     }
 });
