@@ -90,4 +90,13 @@ ul {
   background-color: #428bca;
 
 }
+.today {
+   transition:border linear .2s,box-shadow linear .5s;
+ -moz-transition:border linear .2s,-moz-box-shadow linear .5s;
+ -webkit-transition:border linear .2s,-webkit-box-shadow linear .5s;
+ outline:none;border-color:#ed9c28;
+ box-shadow:0 0 12px #ed9c28;
+ -moz-box-shadow:0 0 12px #ed9c28;
+ -webkit-box-shadow:0 0 12px #ed9c28;
+}
 

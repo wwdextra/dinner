@@ -30,9 +30,10 @@ from settings import *
 from error import error_code, error_info
 from session import gen_session_id
 from utils import JsonResult
+import time
 
-
-session_key = 'ssid' # Browser cookie
+session_key = 'ssid' # Browser cookie name
+book_dinner_endtime = '15' # 15:00/day
 
 db = DbSession() # instantiated
 
@@ -224,7 +225,22 @@ class CalendarHandler(BaseHandler):
     cal_id = self.get_argument('cal_id')
 
     return self.write( self.j.ok().json() )
-            
+
+
+def is_that_day_cook(datetime):
+  # TODO:
+  return True
+import datetime
+class BookDinnerCountdownMinuteHandler(BaseHandler):
+  # Ajax get
+  def get(self):
+    now = datetime.datetime.now()
+    endtime = None
+    if 1:
+      self.j.ok()
+    else:
+      self.j.error()
+    return self.write(self.j.json())
 
 
 application = Application()

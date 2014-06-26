@@ -4,8 +4,14 @@
 
 <div class="dinner">
   <div class="alert alert-info">
-    请点击您需预订晚餐的日期标蓝即可。<strong>今日晚餐：<a href="http://www.dianping.com/shop/5679823"
-    title="浦东新区 浦电路360号投资大厦裙房2楼103D室" target="_blank">翔记餐厅</a>({% if 1 %}堂吃{% else %}外卖{% end %})</strong>
+    请点击您需预订晚餐的日期标蓝即可。
+    {% if 1 %}
+      <strong>今日晚餐：<a href="http://www.dianping.com/shop/5679823"
+      title="浦东新区 浦电路360号投资大厦裙房2楼103D室" target="_blank">翔记餐厅</a>({% if 1 %}堂吃{% else %}外卖{% end %})</strong>   已报名总计100人，{距截止时间还有30分|报名已截止}
+      今天我要外带
+    {% else %}
+      <strong>今日停灶
+    {% end %}
   </div>
 
   <div class="row">
@@ -28,7 +34,7 @@
           {% for j in range(0,5) %}
             <ul class="week-cell">
               <li class="holiday">dd</li>
-              <li class="workday available [[ selected ? 'selected' : '']]" id="test{{ j }}" v-on="click: onClick">1</li>
+              <li class="workday available {%if j == 0 %}today{% end %} [[ selected ? 'selected' : '']]" id="test{{ j }}" v-on="click: onClick">1</li>
               <li class="workday available">1</li>
               <li class="workday">1</li>
               <li class="workday">1</li>
