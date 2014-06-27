@@ -36,7 +36,7 @@ var test = new Vue({
             // e是原生的DOM事件对象
             // this 指向该ViewModel实例
             this.selected = !this.selected;
-            var url = domain + '/dinner/calendar';
+            var url = domain + '/dinner/book';
             var pdata = {
               selected: Number(this.selected),
               cal_id: 333

@@ -59,7 +59,8 @@ class Application(tornado.web.Application):
       (r"/logout", LogoutHandler),
       (r"/h\/(?P<filename>\w+)", HtmlHandler),
       (r"/dinner", DinnerHandler),
-      (r"/dinner/calendar", CalendarHandler),
+      (r"/dinner/book", BookDinnerHandler),
+      (r"/dinner/book/take-away", BookDinnerTakeAway),
       (r"/%20admin", AdminHandler), # it is a secret :)
     ]
     tornado.web.Application.__init__(self, handlers, **settings)
@@ -213,7 +214,8 @@ class AdminHandler(BaseHandler):
     self.write('admin ok')
 
 
-class CalendarHandler(BaseHandler):
+# class CalendarHandler(BaseHandler):
+class BookDinnerHandler(BaseHandler):
   """CalendarHandler"""
   def get(self):
     return self.write(self.j.error().json())
@@ -230,6 +232,7 @@ class CalendarHandler(BaseHandler):
 def is_that_day_cook(datetime):
   # TODO:
   return True
+
 import datetime
 class BookDinnerCountdownMinuteHandler(BaseHandler):
   # Ajax get
@@ -241,6 +244,15 @@ class BookDinnerCountdownMinuteHandler(BaseHandler):
     else:
       self.j.error()
     return self.write(self.j.json())
+
+
+class BookDinnerTakeAway(BaseHandler):
+  """堂吃日单订外卖"""
+  def post(self):
+
+    return self.write(self.j.json())
+
+            
 
 
 application = Application()

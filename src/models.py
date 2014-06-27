@@ -33,11 +33,13 @@ class Calendar(Base):
   year = Column(Integer)
   month = Column(Integer)
   day = Column(Integer)
-  holiday_code = Column(String(2)) # if {null}, that day is a holiday
+  holiday_code = Column(String(10)) # if {null}, that day is a holiday
+  dinner_type = Column(Integer) # 1=inner strore || 2=take-away
+
 
   def __repr__(self):
     if self.holiday_code:
-      return "<User('%s-%s-%s', holiday_code='%s')>" % (
+      return "<date('%s-%s-%s', holiday_code='%s')>" % (
         self.year, self.month, self.day, self.holiday_code)
     else:
       return "<User('%s-%s-%s')>" % (
@@ -139,12 +141,13 @@ class Department(Base):
     """Show in page"""
     return self.name
 
-class Dinner(object):
+class DinnerBook(object):
   """docstring for UserDinner"""
-  __tablename__ = 'user_dinner'
+  __tablename__ = 'dinner_book'
   id = Column(Integer, Sequence('seq_dinner_id'), primary_key=True)
   user_id = Column(Integer, ForeignKey('user.id')) # Father department id
   calendar_id = Column(Integer, ForeignKey('calendar.id')) # Father department id
+  is_take_away = Column(Integer) # 我要外带 
     
 
 
