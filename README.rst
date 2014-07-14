@@ -27,3 +27,6 @@ HTML) can be found in docs/install.rst.
 Refference
 -------------
 [Django layout](https://github.com/micfan/django-layout)
+[Django best practices](http://lincolnloop.com/django-best-practices/)
+[Django docs 1.7](https://docs.djangoproject.com/en/1.7/)
+[the right way to open sourcing a Python project](http://www.jeffknupp.com/blog/2013/08/16/open-sourcing-a-python-project-the-right-way/)
