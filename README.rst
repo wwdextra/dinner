@@ -26,14 +26,15 @@ HTML) can be found in docs/install.rst.
 
 Refference
 -------------
-[Django layout](https://github.com/micfan/django-layout)
-[Django best practices](http://lincolnloop.com/django-best-practices/)
-[Django docs 1.7](https://docs.djangoproject.com/en/1.7/)
+[Django layout](https://github.com/micfan/django-layout) 
+[Django best practices](http://lincolnloop.com/django-best-practices/) 
+[Django docs 1.7](https://docs.djangoproject.com/en/1.7/) 
 [the right way to open sourcing a Python project](http://www.jeffknupp.com/blog/2013/08/16/open-sourcing-a-python-project-the-right-way/) 
-
-[静态文件哈希码以防客户端缓存过深](https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#storages)
-[静态文件前缀](https://docs.djangoproject.com/en/1.6/ref/settings/#staticfiles-dirs)
-[Template dir](https://docs.djangoproject.com/en/1.6/ref/settings/#template-dirs)
-[Load template](https://docs.djangoproject.com/en/1.6/ref/templates/api/#loading-templates)
-[Using subdirectories](https://docs.djangoproject.com/en/1.6/ref/templates/api/#using-subdirectories)
-[Jinja2](https://docs.djangoproject.com/en/1.6/ref/templates/api/#using-an-alternative-template-language)
+[静态文件哈希码以防客户端缓存过深](https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#storages) 
+[静态文件前缀](https://docs.djangoproject.com/en/1.6/ref/settings/#staticfiles-dirs) 
+[Template dir](https://docs.djangoproject.com/en/1.6/ref/settings/#template-dirs) 
+[Load template](https://docs.djangoproject.com/en/1.6/ref/templates/api/#loading-templates) 
+[Using subdirectories](https://docs.djangoproject.com/en/1.6/ref/templates/api/#using-subdirectories) 
+[Jinja2](https://docs.djangoproject.com/en/1.6/ref/templates/api/#using-an-alternative-template-language) 
+[HTTP/1.1 status code](http://tools.ietf.org/html/rfc2616.html#section-10)
+[Django test](https://docs.djangoproject.com/en/dev/topics/testing/tools/) 
