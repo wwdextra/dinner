@@ -38,3 +38,5 @@ Refference
 [Jinja2](https://docs.djangoproject.com/en/1.6/ref/templates/api/#using-an-alternative-template-language) 
 [HTTP/1.1 status code](http://tools.ietf.org/html/rfc2616.html#section-10)
 [Django test](https://docs.djangoproject.com/en/dev/topics/testing/tools/) 
+
+[jQeury doc](http://api.jquery.com/) 
